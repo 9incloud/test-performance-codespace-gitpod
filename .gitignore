@@ -2,7 +2,6 @@
 !/.gitattributes
 !/.projen/tasks.json
 !/.projen/deps.json
-!/.github/workflows/stale.yml
 !/package.json
 !/LICENSE
 !/.npmignore
@@ -33,9 +32,7 @@ jspm_packages/
 /test-reports/
 junit.xml
 /coverage/
-!/.github/workflows/build.yml
 !/.mergify.yml
-!/.github/workflows/upgrade.yml
 !/.github/pull_request_template.md
 !/test/
 !/tsconfig.json
@@ -49,3 +46,8 @@ cdk.out/
 .cdk.staging/
 .parcel-cache/
 !/cdk.json
+cdk.out
+cdk.context.json
+yarn-error.log
+dependabot.yml
+.idea
