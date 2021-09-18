@@ -1,0 +1,6 @@
+{
+    "name": "Dev Container Definition - AWS CDK",
+    "build": {
+		"dockerfile": "Dockerfile"
+	}
+}
