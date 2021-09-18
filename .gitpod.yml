@@ -1,0 +1,11 @@
+github:
+  prebuilds:
+    pullRequestsFromForks: true
+    addComment: true
+    
+image:
+  file: .gitpod.Dockerfile
+tasks:
+  - name: run docker
+    command: sudo docker-up & 
+  - command: echo "source /usr/share/bash-completion/completions/git" >> $HOME/.bashrc
