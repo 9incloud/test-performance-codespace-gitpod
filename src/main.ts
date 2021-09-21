@@ -29,7 +29,7 @@ export class MyStack extends Stack {
 
     const lambdaFunc = new lambda.Function(this, 'CodepipelineEventLambda', {
       code: lambda.Code.fromAsset(
-        path.join(__dirname, '../lambda/codepipeline-event'),
+        path.join(__dirname, '../lambda'),
         {
           bundling: {
             user: 'root',
