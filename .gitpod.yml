@@ -1,3 +1,4 @@
+
 github:
   prebuilds:
     pullRequestsFromForks: true
@@ -13,3 +14,6 @@ tasks:
   - command: echo "source /usr/share/bash-completion/completions/git" >> $HOME/.zshrc
   - command: echo "alias awsap=\"aws --cli-auto-prompt\"" >> $HOME/.zshrc
   - command: zsh
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
