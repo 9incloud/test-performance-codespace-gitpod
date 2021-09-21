@@ -20,7 +20,7 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
   sudo ./aws/install
 
 # Change zsh theme
-RUN sed -i '/s/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' ~/.zshrc
+RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' ~/.zshrc
 
 # start zsh
 CMD [ "zsh" ]
