@@ -3,24 +3,26 @@ FROM gitpod/workspace-full
 USER root
 
 # Install custom tools, runtime, etc.
-RUN ["apt-get", "update"]
-
-RUN ["apt-get", "install", "-y", "zsh"]
+RUN ["apt-get", "update", "&&", "apt-get", "install", "-y", "zsh"]
 
 USER gitpod
 
 # Install Oh-My-Zsh
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 
-RUN npm i -g aws-cdk
+# Change zsh theme and zsh plugin
+RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' ~/.zshrc && \
+  sed -i 's/plugins=(git)/plugins=(zsh-autosuggestions)/' ~/.zshrc
 
-# install aws-cli v2
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+# install zsh plugin
+RUN git clone git://github.com/zsh-users/zsh-autosuggestions && \
+  mv zsh-autosuggestions $ZSH_CUSTOM/plugins  
+
+# install aws cdk && aws-cli v2
+RUN npm i -g aws-cdk && \
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \ 
   unzip awscliv2.zip && \
   sudo ./aws/install
 
-# Change zsh theme
-RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' ~/.zshrc
-
 # start zsh
-CMD [ "zsh" ]
+CMD ["zsh"]
