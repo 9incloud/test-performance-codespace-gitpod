@@ -9,4 +9,5 @@ tasks:
   - name: run docker
     command: sudo docker-up & 
   - command: echo "source /usr/share/bash-completion/completions/git" >> $HOME/.zshrc
+  - command: echo "alias awsap=\"aws --cli-auto-prompt\"" >> $HOME/.zshrc
   - command: zsh
