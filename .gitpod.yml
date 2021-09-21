@@ -6,6 +6,8 @@ github:
 image:
   file: .gitpod.Dockerfile
 tasks:
+  - name: install package
+    init: yarn install --frozen-lockfile && npx projen
   - name: run docker
     command: sudo docker-up & 
   - command: echo "source /usr/share/bash-completion/completions/git" >> $HOME/.zshrc
