@@ -12,7 +12,7 @@ USER gitpod
 
   # set the zsh theme 
 
-ENV ZSH_THEME cloud
+ENV ZSH_THEME agnoster
 
 # Install Oh-My-Zsh
 
