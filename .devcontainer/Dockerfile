@@ -1,13 +1,30 @@
-FROM jsii/superchain
+FROM gitpod/workspace-full
 
-RUN curl -o /tmp/slirp4netns-0.4.3-4.el7_8.x86_64.rpm http://mirror.centos.org/centos/7/extras/x86_64/Packages/slirp4netns-0.4.3-4.el7_8.x86_64.rpm \
-&& yum install -y jq sudo docker && yum install -y /tmp/slirp4netns-0.4.3-4.el7_8.x86_64.rpm && rm -f /tmp/slirp4netns-0.4.3-4.el7_8.x86_64.rpm
+USER root
 
-RUN npm i -g aws-cdk
+# Install custom tools, runtime, etc.
+RUN ["apt-get", "update"]
 
-RUN mv $(which aws) /usr/bin/aws_V1
+RUN ["apt-get", "install", "-y", "zsh"]
 
-# install aws-cli v2
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+USER gitpod
+
+# Install Oh-My-Zsh
+RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+
+# Change zsh theme and zsh plugin
+RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' ~/.zshrc && \
+  sed -i 's/plugins=(git)/plugins=(zsh-autosuggestions)/' ~/.zshrc
+
+# install zsh plugin
+RUN git clone git://github.com/zsh-users/zsh-autosuggestions && \
+  sudo mv zsh-autosuggestions ~/.oh-my-zsh/custom/plugins  
+
+# install aws cdk && aws-cli v2
+RUN npm i -g aws-cdk && \
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \ 
   unzip awscliv2.zip && \
-  ./aws/install
+  sudo ./aws/install
+
+# start zsh
+CMD ["zsh"]

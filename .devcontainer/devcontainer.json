@@ -1,6 +1,7 @@
 {
     "name": "Dev Container Definition - AWS CDK",
     "build": {
-		"dockerfile": "Dockerfile"
-	}
+      "dockerfile": "Dockerfile"
+    },
+    "postCreateCommand": "yarn install --frozen-lockfile && npx projen && echo \"source /usr/share/bash-completion/completions/git\" >> $HOME/.zshrc && echo 'alias awsap=\"aws --cli-auto-prompt\"' >> $HOME/.zshrc && zsh"
 }
