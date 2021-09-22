@@ -1,8 +1,0 @@
-{
-	"name": "Gitpod Ubuntu",
-	"build": {
-		"dockerfile": "Dockerfile",
-	},
-	"extensions": ["dbaeumer.vscode-eslint"],
-  "postCreateCommand": "yarn install --frozen-lockfile && npx projen && zsh",
-}
