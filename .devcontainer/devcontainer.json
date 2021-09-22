@@ -3,12 +3,9 @@
 
   "image":"mcr.microsoft.com/vscode/devcontainers/universal:linux",
 
-	// Set *default* container specific settings.json values on container create.
-	"settings": {},
-
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [],
+	"extensions": ["dbaeumer.vscode-eslint"],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
@@ -27,8 +24,5 @@
     "yarn install --frozen-lockfile && npx projen && echo \"source /usr/share/bash-completion/completions/git\" >> $HOME/.zshrc",
     "echo 'alias awsap=\"aws --cli-auto-prompt\"' >> $HOME/.zshrc",
     "zsh"
-  ],
-
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+  ]
 }
