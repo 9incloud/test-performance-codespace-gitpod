@@ -1,4 +1,5 @@
 # [Choice] Ubuntu version (use hirsuite or bionic on local arm64/Apple Silicon): hirsute, focal, bionic
+ARG VARIANT=linux
 FROM mcr.microsoft.com/vscode/devcontainers/universal:${VARIANT}
 
 # [Optional] Uncomment this section to install additional OS packages.
