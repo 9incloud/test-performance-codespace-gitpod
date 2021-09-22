@@ -7,7 +7,7 @@ RUN ["apt-get", "update"]
 
 RUN ["apt-get", "install", "-y", "zsh"]
 
-RUN systemctl enable docker
+RUN /lib/systemd/systemd-sysv-install enable docker
 
 USER gitpod
 
