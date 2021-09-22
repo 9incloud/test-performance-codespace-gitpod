@@ -1,16 +1,12 @@
-FROM gitpod/workspace-full
+# [Choice] Ubuntu version (use hirsuite or bionic on local arm64/Apple Silicon): hirsute, focal, bionic
+ARG VARIANT=focal
+FROM mcr.microsoft.com/vscode/devcontainers/base:${VARIANT}
 
-USER root
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+#     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-# Install custom tools, runtime, etc.
-RUN ["apt-get", "update"]
-
-RUN ["apt-get", "install", "-y", "zsh"]
-
-USER gitpod
-
-# Install Oh-My-Zsh
-RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
+USER vscode
 
 # Change zsh theme and zsh plugin
 RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' ~/.zshrc && \
