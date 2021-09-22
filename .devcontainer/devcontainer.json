@@ -1,12 +1,5 @@
 {
-	"name": "Ubuntu",
-	"runArgs": ["--init"],
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
-		// Use hirsute or bionic on local arm64/Apple Silicon.
-		"args": { "VARIANT": "linux" }
-	},
+	"name": "Default",
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
@@ -20,7 +13,19 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
-  "postCreateCommand": "yarn install --frozen-lockfile && npx projen && echo \"source /usr/share/bash-completion/completions/git\" >> $HOME/.zshrc && echo 'alias awsap=\"aws --cli-auto-prompt\"' >> $HOME/.zshrc && zsh",
+  "postCreateCommand": [
+    "git clone git://github.com/zsh-users/zsh-autosuggestions",
+    "sudo mv zsh-autosuggestions ~/.oh-my-zsh/custom/plugins",
+    "sed -i 's/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"agnoster\"/' ~/.zshrc",
+    "sed -i 's/plugins=(git)/plugins=(zsh-autosuggestions)/' ~/.zshrc",
+    "npm i -g aws-cdk",
+    "curl \"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip\" -o \"awscliv2.zip\"",
+    "unzip awscliv2.zip",
+    "sudo ./aws/install",
+    "yarn install --frozen-lockfile && npx projen && echo \"source /usr/share/bash-completion/completions/git\" >> $HOME/.zshrc",
+    "echo 'alias awsap=\"aws --cli-auto-prompt\"' >> $HOME/.zshrc",
+    "zsh"
+  ],
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
