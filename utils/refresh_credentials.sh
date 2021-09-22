@@ -48,8 +48,19 @@ access_key_id=$(echo $credentials | jq -r .Credentials.AccessKeyId)
 secret_access_key=$(echo $credentials | jq -r .Credentials.SecretAccessKey)
 session_token=$(echo $credentials | jq -r .Credentials.SessionToken)
 
-aws configure set --profile "$profile" aws_access_key_id "$access_key_id"
-aws configure set --profile "$profile" aws_secret_access_key "$secret_access_key"
-aws configure set --profile "$profile" aws_session_token "$session_token"
+# aws configure set --profile "$profile" aws_access_key_id "$access_key_id"
+# aws configure set --profile "$profile" aws_secret_access_key "$secret_access_key"
+# aws configure set --profile "$profile" aws_session_token "$session_token"
+
+if [[ -f "~/.aws/credentials" ]]; then
+  rm ~/.aws/credentials
+fi
+
+cat << EOF > ~/.aws/credentials
+[$profile]
+aws_access_key_id=$access_key_id
+aws_secret_access_key=$secret_access_key
+aws_session_token=$session_token
+EOF
 
 echo "[OK] done"
