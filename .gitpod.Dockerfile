@@ -1,5 +1,7 @@
 FROM gitpod/workspace-full
 
+RUN mkdir -p /opt
+
 USER root
 
 # Install custom tools, runtime, etc.
