@@ -9,6 +9,8 @@ RUN ["apt-get", "install", "-y", "zsh"]
 
 USER gitpod
 
+COPY ./.gitpod/oh-my-zsh.sh ./.gitpod/oh-my-zsh.sh
+
 # Install Oh-My-Zsh and setup zsh
 RUN sudo chmod +x ./.gitpod/oh-my-zsh.sh && ./.gitpod/oh-my-zsh.sh
 
