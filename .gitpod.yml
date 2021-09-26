@@ -9,6 +9,8 @@ image:
 tasks:
   - name: install package
     init: yarn install --frozen-lockfile && npx projen
+  - name: check zsh and zsh plugin
+    init: sudo chmod +x ./.gitpod/oh-my-zsh.sh && ./.gitpod/oh-my-zsh.sh
   - name: run docker
     command: sudo docker-up & 
   - name: start zsh
