@@ -13,6 +13,8 @@ tasks:
       sudo chmod +x ./.gitpod/oh-my-zsh.sh && ./.gitpod/oh-my-zsh.sh
   - name: run docker
     command: sudo docker-up & 
+  - name: zsh plugin
+    command: sudo chmod +x ./.gitpod/oh-my-zsh.sh && ./.gitpod/oh-my-zsh.sh
   - name: start zsh
     command: zsh
 vscode:
