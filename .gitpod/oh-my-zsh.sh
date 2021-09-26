@@ -25,11 +25,6 @@ if [[ -d ~/.oh-my-zsh ]]; then
     sed -i 's/plugins=(git)/plugins=(zsh-autosuggestions)/' ~/.zshrc
 fi
 
-if grep -q source /usr/share/bash-completion/completions/git ~/.zshrc; then
-    echo "source /usr/share/bash-completion/completions/git" >> ~/.zshrc
-    echo "alias awsap=\"aws --cli-auto-prompt\"" >> ~/.zshrc
-fi 
-
 if ! grep -q "source /usr/share/bash-completion/completions/git" ~/.zshrc; then
    echo "source /usr/share/bash-completion/completions/git" >> ~/.zshrc
 fi
