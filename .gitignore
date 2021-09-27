@@ -51,3 +51,4 @@ cdk.context.json
 yarn-error.log
 dependabot.yml
 .idea
+!/.gitpod.yml
