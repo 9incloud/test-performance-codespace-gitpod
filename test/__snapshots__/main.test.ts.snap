@@ -1,0 +1,224 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Outputs": Object {
+    "badgeMarkdownLink": Object {
+      "Value": Object {
+        "Fn::Join": Array [
+          "",
+          Array [
+            "[![Build Status](https://",
+            Object {
+              "Ref": "BadgeBucket1DD67E45",
+            },
+            ".s3-ap-northeast-1.amazonaws.com/main-latest-build.svg#1)](https://ap-northeast-1.console.aws.amazon.com/codesuite/codepipeline/pipelines/pipeline.pipelineName/view)",
+          ],
+        ],
+      },
+    },
+  },
+  "Parameters": Object {
+    "AssetParameters347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6ArtifactHash0B85F498": Object {
+      "Description": "Artifact hash for asset \\"347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6\\"",
+      "Type": "String",
+    },
+    "AssetParameters347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6S3BucketCF828924": Object {
+      "Description": "S3 bucket for asset \\"347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6\\"",
+      "Type": "String",
+    },
+    "AssetParameters347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6S3VersionKey0EBD8F2F": Object {
+      "Description": "S3 key for asset version \\"347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6\\"",
+      "Type": "String",
+    },
+  },
+  "Resources": Object {
+    "BadgeBucket1DD67E45": Object {
+      "DeletionPolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "BadgeBucketPolicyA83A12A4": Object {
+      "Properties": Object {
+        "Bucket": Object {
+          "Ref": "BadgeBucket1DD67E45",
+        },
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": Object {
+                "AWS": "*",
+              },
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    Object {
+                      "Fn::GetAtt": Array [
+                        "BadgeBucket1DD67E45",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::S3::BucketPolicy",
+    },
+    "CodepipelineEventLambdaCD0F12A8": Object {
+      "DependsOn": Array [
+        "CodepipelineEventLambdaServiceRoleDefaultPolicy386098CE",
+        "CodepipelineEventLambdaServiceRoleD7646375",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6S3BucketCF828924",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6S3VersionKey0EBD8F2F",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters347a936b25180f39e0ffca239dc265d382e796de98bc27fe89b83334c8891aa6S3VersionKey0EBD8F2F",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Environment": Object {
+          "Variables": Object {
+            "BADGE_BUCKET_IMAGE_KEY_NAME": "main-latest-build.svg",
+            "BADGE_BUCKET_NAME": Object {
+              "Ref": "BadgeBucket1DD67E45",
+            },
+            "CODE_PIPELINE_NAME": "pipeline.pipelineName",
+            "GITHUB_PERSONAL_TOKEN": "",
+            "SLACK_WEBHOOK_URL": "",
+            "STAGE": "main",
+          },
+        },
+        "Handler": "dist/codepipelineEventLambda.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "CodepipelineEventLambdaServiceRoleD7646375",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "CodepipelineEventLambdaServiceRoleD7646375": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "CodepipelineEventLambdaServiceRoleDefaultPolicy386098CE": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+                "s3:DeleteObject*",
+                "s3:PutObject*",
+                "s3:Abort*",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "BadgeBucket1DD67E45",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "BadgeBucket1DD67E45",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "CodepipelineEventLambdaServiceRoleDefaultPolicy386098CE",
+        "Roles": Array [
+          Object {
+            "Ref": "CodepipelineEventLambdaServiceRoleD7646375",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+  },
+}
+`;
